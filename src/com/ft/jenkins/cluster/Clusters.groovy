@@ -146,7 +146,7 @@ class Clusters implements Serializable {
       clusterToApiServerMap = [
               ("${Region.EU}-${ClusterType.PUBLISHING}".toString()): newEksEntry(
                       eksClusterName: "eks-publish-staging-eu",
-                      apiServer: "https://DFA8CD6B8CC905664A92503112DA5E1B.sk1.eu-west-1.eks.amazonaws.com",
+                      apiServer: "https://BED6FF5CE2B60B9038FF15C617D0FA8E.gr7.eu-west-1.eks.amazonaws.com",
                       publicEndpoint: "https://upp-staging-publish-eu.upp.ft.com"
               ),
               ("${Region.US}-${ClusterType.PUBLISHING}".toString()): newEksEntry(
