@@ -62,7 +62,7 @@ class Clusters implements Serializable {
               ),
               ("${Region.US}-${ClusterType.DELIVERY}".toString()): newEksEntry(
                       eksClusterName: "eks-delivery-staging-us",
-                      apiServer: "https://265BB1D26C6CE69DB98FA03ED312F26F.gr7.us-east-1.eks.amazonaws.com",
+                      apiServer: "https://B54D477610F54CBD56DDA5775EBBC4B2.gr7.us-east-1.eks.amazonaws.com",
                       publicEndpoint: "https://upp-staging-delivery-us.upp.ft.com"
               )
       ]
