@@ -20,6 +20,16 @@ void pushImageToDockerReg(image, String dockerRegistryUrl, String credentials = 
   }
 }
 
+void pullImageFromDockerReg(String tag) {
+  boolean useInternalDockerReg = tag.startsWith(FT_DOCKER_REGISTRY_NAME)
+  String credentials = useInternalDockerReg ? FT_DOCKER_REGISTRY_CREDENTIALS : DOCKERHUB_CREDENTIALS
+  String registry = useInternalDockerReg ? FT_DOCKER_REGISTRY_CREDENTIALS :  DOCKERHUB_URL
+  echo "Pulling image ${tag} from registry ${registry}"
+  docker.withRegistry(registry, credentials) {
+    docker.image(tag).pull()
+  }
+}
+
 def buildImage(String dockerTag, String folder = ".") {
   def image = null
   /*  adding the internal nexus credentials to support the maven apps connecting to Nexus */
@@ -71,7 +81,7 @@ void buildAndPushImage(String dockerTag) {
 
 private boolean imageExists(String tag) {
   try {
-    docker.image(tag).pull()
+    pullImageFromDockerReg(tag)
     return true
   } catch (ignored) {
     return false
