@@ -17,22 +17,6 @@ class EnvRegistrySpec extends Specification {
     EnvsRegistry.getEnvironmentByFullName("non-existing") == null
   }
 
-  def "should get env by cluster full name for prod environment"() {
-    when:
-    def envByClusterTypeAndEnvName = EnvsRegistry.getEnvironment(ClusterType.DELIVERY, Environment.PROD_NAME)
-    def envByEnvFullName = EnvsRegistry.getEnvironmentByFullName("prod-delivery-eu")
-    then:
-    envByClusterTypeAndEnvName == envByEnvFullName
-  }
-
-  def "should get env by cluster full name for staging environment"() {
-    when:
-    def envByClusterTypeAndEnvName = EnvsRegistry.getEnvironment(ClusterType.DELIVERY, Environment.STAGING_NAME)
-    def envByEnvFullName = EnvsRegistry.getEnvironmentByFullName("staging-delivery-eu")
-    then:
-    envByClusterTypeAndEnvName == envByEnvFullName
-  }
-
   def "should get env based on an app config map and env name"() {
     given:
     def expectedClusterTypes = [ClusterType.DELIVERY, ClusterType.PUBLISHING, ClusterType.PAC]
