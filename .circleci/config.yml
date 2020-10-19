@@ -2,13 +2,21 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
+
+references:
+  docker-auth: &docker-auth
+    auth:
+      username: $DOCKERHUB_USERNAME
+      password: $DOCKERHUB_ACCESS_TOKEN
+
 jobs:
-  build:
+  test_and_build:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk@sha256:f4a8da364ff6aa7b9a64dcc77c0ee7b41729920e4a0727a467799e713bb8ff8d
-      
+        <<: *docker-auth
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -19,7 +27,7 @@ jobs:
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-    
+
     steps:
       - checkout
 
@@ -36,7 +44,7 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-        
+
       - run:
           name: "Maven build"
           command: |
@@ -58,3 +66,10 @@ jobs:
           path: ~/junit
       - store_artifacts:
           path: ~/junit
+
+workflows:
+  version: 2
+  test_and_build:
+    jobs:
+      - test_and_build:
+          context: dockerhub-shared
