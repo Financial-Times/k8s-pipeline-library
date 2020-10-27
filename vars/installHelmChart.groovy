@@ -21,7 +21,7 @@ def call() {
   Region deployOnlyInRegion = computeDeployOnlyInRegion()
   Boolean sendSuccessNotifications = params."Send success notifications"
 
-  if (!targetEnvNamespace?.trim()) {
+  if (targetEnvNamespace?.trim()) {
     targetEnv.namespace = targetEnvNamespace
   }
 
